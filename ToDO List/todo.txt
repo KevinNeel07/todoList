@@ -1,0 +1,7 @@
+  userDetails.forEach((user) => {
+        if(email === user.email){
+            return true
+        }else{
+            return false
+        }
+    })
