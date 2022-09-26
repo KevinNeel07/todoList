@@ -5,3 +5,5 @@
             return false
         }
     })
+
+    user[user.findIndex((user)=> user.email === email)].task.push(list.value);

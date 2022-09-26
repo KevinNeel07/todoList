@@ -14,22 +14,18 @@ function signUp(e) {
     let userDetails = JSON.parse(localStorage.getItem("user"));
 
     if (userDetails === null) {
-        localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password }]));
+        localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password, task: []}]));
     } else {
         let i = 0;
         while (i <= userDetails.length) {
             if (userDetails[i].email == email) {
-                if (i > userDetails.length) {
-                    console.log('line 30')
-                    break;
-                }
                 console.log('line 33')
                 alert('User Already Exist!');
                 break;
             } else if (userDetails[i].email !== email) {
                 if (i >= userDetails.length -1) {
                     console.log('line 37')
-                    localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password }]));
+                    localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password, task: [] }]));
                     alert('SignUp successfull. Return to login page')
                     break;
                 } else {
