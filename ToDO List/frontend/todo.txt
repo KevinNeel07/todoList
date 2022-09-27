@@ -1,0 +1,9 @@
+  userDetails.forEach((user) => {
+        if(email === user.email){
+            return true
+        }else{
+            return false
+        }
+    })
+
+    user[user.findIndex((user)=> user.email === email)].task.push(list.value);
