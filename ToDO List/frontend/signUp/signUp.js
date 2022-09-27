@@ -14,7 +14,7 @@ function signUp(e) {
     let userDetails = JSON.parse(localStorage.getItem("user"));
 
     if (userDetails === null) {
-        localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password, task: []}]));
+        localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password, pendingTask: [], completedTask: []}]));
         alert('SignUp successfull. Return to login page')
     } else {
         let i = 0;
@@ -26,7 +26,7 @@ function signUp(e) {
             } else if (userDetails[i].email !== email) {
                 if (i >= userDetails.length -1) {
                     console.log('line 37')
-                    localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password, task: [] }]));
+                    localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password, pendingTask: [],completedTask: [] }]));
                     alert('SignUp successfull. Return to login page')
                     break;
                 } else {

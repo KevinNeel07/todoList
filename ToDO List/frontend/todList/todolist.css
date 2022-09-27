@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
 body {
@@ -18,21 +19,21 @@ body {
     width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     border-radius: 2%;
     box-shadow: 0px 11px 30px 0px rgb(0 0 0 / 20%);
     background-color: white;
 }
 
-.content {
+.content, .completedTask {
     height: 65%;
     width: 100%;
     display: flex;
     flex-direction: column-reverse
 }
 
-.content ul {
+#list_ele, #cmp_taskList {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -42,6 +43,32 @@ body {
 
 .content li {
     margin: 15px 0px;
+}
+
+#list_ele div{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    border-bottom: 1px solid rgb(227 227 227);
+}
+
+
+#delButton{
+    outline: none;
+    border: 1px solid #dfa5a5;
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 2px 5px;
+    color: #dfa5a5;
+    cursor: pointer;
+}
+
+#delButton:hover{
+    border: 1px solid rgb(125, 0, 0);
+    color: rgb(125, 0, 0);
+
 }
 
 .input {
@@ -55,9 +82,38 @@ body {
 
 .input input {
     padding: 5px 20px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid rgb(227 227 227);
 }
 
 .input button {
     padding: 5px 25px;
     cursor: pointer;
+    outline: none;
+    color: transparent;
+    border: 1.5px solid green;
+    color: green;
+    background-color: transparent;
+}
+
+.input button:hover{
+    background-color: green;
+    color: white;
+}
+
+#signOut{
+    border: 1.5px solid #d20000;
+    outline: none;
+    background-color: transparent;
+    padding: 5px 15px;
+    color: #d20000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#signOut:hover{
+    background-color: #d20000;
+    color: white;
 }

@@ -1,5 +1,6 @@
 const button = document.getElementById('button');
 let list_Data = document.getElementById('list_ele');
+let cmp_taskList = document.getElementById('cmp_taskList');
 let content = document.getElementById('content');
 
 let deleteEvent = document.getElementById('delButton')
@@ -7,8 +8,8 @@ let deleteEvent = document.getElementById('delButton')
 let signOutbtn = document.getElementById('signOut');
 
 
-if(deleteEvent){
-    deleteEvent.addEventListener((e)=>{
+if (deleteEvent) {
+    deleteEvent.addEventListener((e) => {
         e.target.value
         console.log(e.innerHTML);
     })
@@ -33,12 +34,18 @@ function setData(e) {
 
     let user = JSON.parse(localStorage.getItem('user'));
 
-    user[user.findIndex((user) => user.email === email)].task.push(list.value);
+    if (!user) {
+        localStorage.setItem('user');
+    } else {
+        user[user.findIndex((user) => user.email === email)].pendingTask.push(list.value);
 
-    localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
+    }
 
-    showList(list.value)
-  
+
+
+    showList(list.value, checkIcon = true)
+
     list.value = ''
 
 }
@@ -47,58 +54,111 @@ function getItem() {
     let data = JSON.parse(localStorage.getItem('user'))
     let user = data.find((u) => u.email === email)
 
-    if (user.task == null) {
-        let p = document.createElement('p');
+    let p = document.createElement('p');
+    console.log(user);
+
+    if (user.pendingTask == '') {
         let textNode = document.createTextNode('No tast available');
         p.appendChild(textNode);
         content.appendChild(p);
     } else {
-
-        let userData = user.task
-        userData.forEach((task) => {
-           showList(task)
+        let pendingTask = user.pendingTask;
+        let completedTask = user.completedTask;
+        pendingTask.forEach((task) => {
+            showList(task, checkIcon = true)
         })
+        completedTask.forEach((task)=>{
+            showList(task, checkIcon = false)
+        })
+
     }
 }
 
-function showList(task){
+function showList(task, checkIcon) {
+    let div = document.createElement('div')
     let list_Ele = document.createElement('li');
     list_Ele.appendChild(document.createTextNode(task));
-    list_Data.appendChild(list_Ele);
+    div.appendChild(list_Ele)
+
+    let delELem = true;
+
+    if (checkIcon == true) {
+
+        //displays the check button for pending task
+
+        list_Data.appendChild(div);
+
+        //Checked Button
+        let checkedButton = document.createElement('button');
+        checkedButton.setAttribute('id', 'checkedButton');
+        checkedButton.innerHTML = 'check';
+        div.appendChild(checkedButton);
+        checkedButton.addEventListener('click', () => { delItem(task, cmpTaskDEl = false), checkItem(task, div.parentNode.removeChild(div))})
+        delELem = false;
+    } else {
+        //for completed task
+        cmp_taskList.appendChild(div);
+        delELem = true
+    }
 
     // Delete Button
     let delBUtton = document.createElement('button');
     delBUtton.setAttribute('id', 'delButton')
     delBUtton.innerHTML = 'X'
-    list_Ele.appendChild(delBUtton)
+    div.appendChild(delBUtton)
 
     delBUtton.addEventListener('click', () => {
-        delItem(task)
-        list_Ele.parentNode.removeChild(list_Ele)
+        delItem(task, delELem)
+        div.parentNode.removeChild(div)
     }
     )
 }
 
-function delItem(task) {
+function checkItem(task) {
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+
+    user[user.findIndex((user) => user.email === email)].completedTask.push(task);
+
+    localStorage.setItem('user', JSON.stringify(user));
+
+    let cmpTaskDEl = true;
+    showList(task, checkIcon = false)
+
+}
+
+function delItem(task, cmpTaskDEl) {
 
     let deleteEvent = document.getElementById('delButton')
     console.log(deleteEvent)
 
-
     let data = JSON.parse(localStorage.getItem('user'))
+
     let user = data.find((u) => u.email === email)
-    let userData = user.task
+    let userData;
+    if (cmpTaskDEl == true) {
 
+        //Removes the element from completed task
 
-    let newItems = userData.filter((ele) => ele !== task)
-    console.log(userData, 'userData');
+        userData = user.completedTask
+        let newItems = userData.filter((ele) => ele !== task)
+        data[data.findIndex((d) => d.email === email)].completedTask = newItems;
+        localStorage.setItem('user', JSON.stringify(data))
+        cmpTaskDEl = false;
+    } else {
 
-    console.log(newItems);
-    data[data.findIndex((d) => d.email === email)].task = newItems;
+        //Removes the element from pending task
 
-    localStorage.setItem('user', JSON.stringify(data))
+        userData = user.pendingTask
+        let newItems = userData.filter((ele) => ele !== task)
+        data[data.findIndex((d) => d.email === email)].pendingTask = newItems;
+        localStorage.setItem('user', JSON.stringify(data))
+        cmpTaskDEl = true
+    }
+
 }
 
-signOutbtn.addEventListener('click', ()=>{
+signOutbtn.addEventListener('click', () => {
     window.location.replace('../index.html')
 })
