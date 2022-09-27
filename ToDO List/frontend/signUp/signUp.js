@@ -15,6 +15,7 @@ function signUp(e) {
 
     if (userDetails === null) {
         localStorage.setItem("user", JSON.stringify([...JSON.parse(localStorage.getItem("user") || "[]"), { name: name, email: email, password: password, task: []}]));
+        alert('SignUp successfull. Return to login page')
     } else {
         let i = 0;
         while (i <= userDetails.length) {

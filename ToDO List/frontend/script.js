@@ -29,16 +29,16 @@ function login(e) {
                 i++
             } else if (userDetails[i].email == email && userDetails[i].password == password) {
                     console.log('line 32')
-                    window.location.href = `./todList/todolist.html?email=${email}`;
+
                     alert('login Successfull!')
+                    window.location.replace(`./todList/todolist.html?email=${email}`);
                     break;
             }
             else {
                 alert('invald credentials')
-                console.log('line 43')
+                console.log('line 38')
                 i++
             }
         }
     }
-
 }
