@@ -31,6 +31,7 @@ function login(e) {
                     console.log('line 32')
 
                     alert('login Successfull!')
+                    sessionStorage.setItem('session', email)
                     window.location.replace(`./todList/todolist.html?email=${email}`);
                     break;
             }

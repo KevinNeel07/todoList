@@ -22,7 +22,7 @@ body {
     justify-content: space-evenly;
     align-items: center;
     border-radius: 2%;
-    box-shadow: 0px 11px 30px 0px rgb(0 0 0 / 20%);
+    box-shadow: 0px 11px 16px 0px rgb(0 0 0 / 11%);
     background-color: white;
 }
 
@@ -41,11 +41,11 @@ body {
     align-items: center;
 }
 
-.content li {
+.content li, .completedTask li {
     margin: 15px 0px;
 }
 
-#list_ele div{
+#list_ele div, #cmp_taskList div{
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -69,6 +69,10 @@ body {
     border: 1px solid rgb(125, 0, 0);
     color: rgb(125, 0, 0);
 
+}
+
+h4{
+    color: #74dfd5;
 }
 
 .input {
